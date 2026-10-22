@@ -1,6 +1,6 @@
 const toggle=document.querySelector('#menuToggle');const nav=document.querySelector('#navlinks');toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Tutup menu':'Buka menu')});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false')}));
 const filters=document.querySelectorAll('.filter');const products=document.querySelectorAll('.product');filters.forEach(btn=>btn.addEventListener('click',()=>{filters.forEach(x=>x.classList.toggle('active',x===btn));products.forEach(card=>{card.hidden=btn.dataset.filter!=='all'&&!card.dataset.category.split(' ').includes(btn.dataset.filter)})}));
-document.querySelectorAll('[data-product]').forEach(link=>{const product=link.dataset.product;link.href='https://wa.me/6285122288865?text='+encodeURIComponent('Halo CETAKIN! Saya mau konsultasi gratis untuk produk '+product+'. Boleh minta informasi pilihan dan harga?');link.target='_blank';link.rel='noopener'});
+document.querySelectorAll('[data-product]').forEach(link=>{const product=link.dataset.product;link.href='https://wa.me/6285196071937?text='+encodeURIComponent('Halo CETAKIN! Saya mau konsultasi gratis untuk produk '+product+'. Boleh minta informasi pilihan dan harga?');link.target='_blank';link.rel='noopener'});
 document.querySelector('#year').textContent=new Date().getFullYear();const header=document.querySelector('#header');window.addEventListener('scroll',()=>header.classList.toggle('scrolled',window.scrollY>20),{passive:true});
 
 
@@ -31,4 +31,4 @@ ${lines.join('\n')}
 
 Total estimasi: ${formatIDR(total)}
 
-Mohon konfirmasi stok, durasi, legalitas akses, cara aktivasi dan pembayaran. Terima kasih!`;window.open('https://wa.me/6285122288865?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer')});renderDigitalCatalog();renderCart();
+Mohon konfirmasi stok, durasi, legalitas akses dan cara aktivasi. Saya ingin membayar melalui QRIS CETAKIN setelah admin mengonfirmasi total akhir. Terima kasih!`;window.open('https://wa.me/6285196071937?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer')});renderDigitalCatalog();renderCart();

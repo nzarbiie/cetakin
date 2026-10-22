@@ -9,3 +9,5 @@
 .digital-art.iqiyi{background:linear-gradient(135deg,#0d5626,#40c44c)}
 .digital-art.spotify{background:linear-gradient(135deg,#0a2220,#1db954)}
 .digital-art.iqiyi strong{font-size:clamp(29px,3vw,44px)}
+
+.payment-note{margin:22px auto 0;max-width:900px;font-size:14px;line-height:1.7;padding:16px 20px;border:1px solid currentColor;border-radius:12px;opacity:.9}
