@@ -25,10 +25,25 @@ function openDigitalCart(){oldFocus=document.activeElement;cartDrawer.classList.
 function closeDigitalCart(){cartDrawer.classList.remove('show');cartDrawer.setAttribute('aria-hidden','true');cartOverlay.hidden=true;document.body.style.overflow='';if(oldFocus&&oldFocus.focus)oldFocus.focus()}
 document.getElementById('openCart').addEventListener('click',openDigitalCart);document.getElementById('closeCart').addEventListener('click',closeDigitalCart);cartOverlay.addEventListener('click',closeDigitalCart);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&cartDrawer.classList.contains('show'))closeDigitalCart();if(e.key==='Tab'&&cartDrawer.classList.contains('show')){const focusable=[...cartDrawer.querySelectorAll('button:not(:disabled)')];if(e.shiftKey&&document.activeElement===focusable[0]){e.preventDefault();focusable[focusable.length-1].focus()}else if(!e.shiftKey&&document.activeElement===focusable[focusable.length-1]){e.preventDefault();focusable[0].focus()}}});
 function renderCart(){const items=document.getElementById('cartItems');items.replaceChildren();const count=digitalCart.reduce((s,i)=>s+i.quantity,0),total=digitalCart.reduce((s,i)=>s+i.price*i.quantity,0);document.getElementById('cartCount').textContent=count;document.getElementById('cartTotal').textContent=formatIDR(total);document.getElementById('checkoutCart').disabled=!count;if(!count){const blank=document.createElement('p');blank.className='cart-empty';blank.textContent='Keranjangmu masih kosong. Yuk pilih paket digital favoritmu!';items.append(blank);return}digitalCart.forEach((i,index)=>{const p=digitalCatalog.find(p=>p.id===i.id);const item=document.createElement('div');item.className='cart-item';const left=document.createElement('div'),right=document.createElement('div'),name=document.createElement('b'),detail=document.createElement('small'),price=document.createElement('strong'),remove=document.createElement('button');name.textContent=p.name;detail.textContent=i.option+' × '+i.quantity;price.textContent=formatIDR(i.price*i.quantity);remove.textContent='Hapus';remove.addEventListener('click',()=>{digitalCart.splice(index,1);saveDigitalCart()});left.append(name,detail);right.append(price,document.createElement('br'),remove);item.append(left,right);items.append(item)})}
-document.getElementById('checkoutCart').addEventListener('click',()=>{if(!digitalCart.length)return;const total=digitalCart.reduce((s,i)=>s+i.price*i.quantity,0);const lines=digitalCart.map((i,n)=>`${n+1}. ${digitalCatalog.find(p=>p.id===i.id).name} — ${i.option} (${i.quantity}× ${formatIDR(i.price)}) = ${formatIDR(i.price*i.quantity)}`);const msg=`Halo CETAKIN! Saya ingin memesan produk digital berikut:
-
-${lines.join('\n')}
-
-Total estimasi: ${formatIDR(total)}
-
-Mohon konfirmasi stok, durasi, legalitas akses dan cara aktivasi. Saya ingin membayar melalui QRIS CETAKIN setelah admin mengonfirmasi total akhir. Terima kasih!`;window.open('https://wa.me/6285196071937?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer')});renderDigitalCatalog();renderCart();
+// Paste your deployed Google Apps Script /exec URL here after setup.
+const CETAKIN_ORDER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzORUQVGtsw2hHTWx6AeXKQcd0yO9X7EslaQHSgYnG24nEoStMUHboCJbtxlY8e6ewI2Q/exec';
+const newOrderId=()=> 'CTK-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+crypto.getRandomValues(new Uint32Array(1))[0].toString(36).toUpperCase().padStart(7,'0');
+document.getElementById('checkoutCart').addEventListener('click',async()=>{
+ if(!digitalCart.length)return;
+ const name=document.getElementById('orderName').value.trim(), phone=document.getElementById('orderPhone').value.trim();
+ const status=document.getElementById('orderStatus');status.className='';
+ if(name.length<2||!/^[+0-9 ()-]{8,25}$/.test(phone)){status.className='error';status.textContent='Isi nama dan nomor WhatsApp yang benar dulu.';return;}
+ const btn=document.getElementById('checkoutCart');btn.disabled=true;status.textContent='Mencatat pesanan...';
+ const id=newOrderId();const total=digitalCart.reduce((v,i)=>v+i.price*i.quantity,0);
+ const lines=digitalCart.map((i,n)=>`${n+1}. ${digitalCatalog.find(p=>p.id===i.id).name} — ${i.option} (${i.quantity}× ${formatIDR(i.price)}) = ${formatIDR(i.price*i.quantity)}`);
+ const msg=`Halo CETAKIN! Saya ingin memesan produk digital berikut:\n\nNo. Order: ${id}\nNama: ${name}\nWhatsApp: ${phone}\n\n${lines.join('\n')}\n\nTotal estimasi: ${formatIDR(total)}\n\nMohon konfirmasi ketersediaan dan total akhir. Mohon kirim QRIS ShopeePay sesuai nominal order ini. Saya akan menunggu konfirmasi setelah pembayaran diverifikasi admin.`;
+ if(!CETAKIN_ORDER_ENDPOINT){status.className='error';status.textContent='Admin belum memasang URL Google Apps Script. Pesanan belum tercatat di spreadsheet.';btn.disabled=false;return;}
+ try{
+  // Google Apps Script web apps cannot usually provide browser CORS response headers.
+  // no-cors is transport-only: it cannot attest that server accepted the order.
+  await fetch(CETAKIN_ORDER_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({id,name,phone,items:digitalCart.map(i=>({id:i.id,option:i.option,quantity:i.quantity}))})});
+  status.textContent='Permintaan pencatatan sudah dikirim. Lanjutkan melalui WhatsApp dan tunggu konfirmasi admin.';
+  window.location.href='https://wa.me/6285196071937?text='+encodeURIComponent(msg);
+ }catch(error){status.className='error';status.textContent='Koneksi gagal. Pesanan belum bisa dikirim ke spreadsheet. Coba lagi.';}
+ finally{btn.disabled=false;}
+});renderDigitalCatalog();renderCart();

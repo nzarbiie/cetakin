@@ -11,3 +11,6 @@
 .digital-art.iqiyi strong{font-size:clamp(29px,3vw,44px)}
 
 .payment-note{margin:22px auto 0;max-width:900px;font-size:14px;line-height:1.7;padding:16px 20px;border:1px solid currentColor;border-radius:12px;opacity:.9}
+
+/* Order tracking */
+.order-fields{display:grid;gap:7px;margin-top:14px}.order-fields label{font-weight:650;font-size:13px}.order-fields input{border:1px solid #b0b0b0;border-radius:9px;padding:11px 12px;background:#fff;color:#111;min-width:0}.order-fields input:focus{outline:2px solid #f4b300;outline-offset:2px}.order-fields #orderStatus{font-size:12px;line-height:1.45;margin:3px 0 9px}.order-fields #orderStatus.error{color:#c63838}
