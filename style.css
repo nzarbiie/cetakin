@@ -14,3 +14,22 @@
 
 /* Order tracking */
 .order-fields{display:grid;gap:7px;margin-top:14px}.order-fields label{font-weight:650;font-size:13px}.order-fields input{border:1px solid #b0b0b0;border-radius:9px;padding:11px 12px;background:#fff;color:#111;min-width:0}.order-fields input:focus{outline:2px solid #f4b300;outline-offset:2px}.order-fields #orderStatus{font-size:12px;line-height:1.45;margin:3px 0 9px}.order-fields #orderStatus.error{color:#c63838}
+
+/* New CETAKIN digital catalog product covers */
+.digital-art.primevideo{background:linear-gradient(135deg,#0b1733,#1394ed)}
+.digital-art.wetv{background:linear-gradient(135deg,#142d57,#ffbd38)}
+.digital-art.viu{background:linear-gradient(135deg,#342146,#bb50ee)}
+.digital-art.loklok{background:linear-gradient(135deg,#29224b,#8146d7)}
+.digital-art.bsstation{background:linear-gradient(135deg,#10233f,#3e8ddd)}
+.digital-art.disneyplus{background:linear-gradient(135deg,#07112d,#185ac9)}
+.digital-art.youtube{background:linear-gradient(135deg,#2a1011,#ed2129)}
+.digital-art.youtubemusic{background:linear-gradient(135deg,#321214,#e92635)}
+.digital-art.vidio{background:linear-gradient(135deg,#42113d,#d92eae)}
+.digital-art.applemusic{background:linear-gradient(135deg,#d74058,#8b3fd6)}
+.digital-art.zoom{background:linear-gradient(135deg,#133b9b,#6192fb)}
+.digital-art.claude{background:linear-gradient(135deg,#503226,#c07959)}
+
+.digital-art strong{overflow-wrap:anywhere;text-align:center;line-height:1.04}.digital-art.youtubemusic strong,.digital-art.vidio strong,.digital-art.bsstation strong{font-size:clamp(27px,2.7vw,39px)}
+
+/* CETAKIN PRINT PRICE CATALOG */
+.print-prices{background:#f3f6fa}.print-prices h2{font-size:clamp(38px,5vw,70px);letter-spacing:-3px;margin:20px 0}.print-prices h2 span{color:#ed0b78}.print-prices .section-sub{max-width:680px;margin-bottom:30px}.print-price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.print-price-card{background:#fff;border:1px solid #e1e2e7;border-radius:18px;overflow:hidden;box-shadow:0 12px 30px #1b24400c}.print-price-card>img{display:block;width:100%;height:290px;object-fit:cover;object-position:top center;background:#fff}.print-price-body{padding:25px;display:flex;flex-direction:column;gap:13px}.print-pill{width:max-content;max-width:100%;background:#e9f4ff;color:#0878db;border-radius:60px;padding:6px 12px;font-size:11px;font-weight:900;letter-spacing:.8px}.print-price-body h3{font-size:25px;letter-spacing:-.7px;margin:0}.print-price-body>p{font-size:13px;color:#677080;line-height:1.5;margin:0}.print-price-body label:not(.print-check){display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:800}.print-price-body select,.print-price-body input[type=number]{width:100%;padding:12px;border:1px solid #cdd3dc;border-radius:8px;background:#fff;font:inherit;font-size:14px;color:#202530}.print-price-body .print-check{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700}.print-check input{width:16px;height:16px;accent-color:#e9007a}.print-price-body .print-help{color:#656e7c;font-size:12px}.print-total{font-size:27px;letter-spacing:-.5px}.print-order{border:none;background:#10151f;color:white;font:inherit;font-weight:800;cursor:pointer;border-radius:8px;padding:15px}.print-order:hover{background:#ed0b78}.print-order:disabled{opacity:.45;cursor:not-allowed}.print-footnote{font-size:12px;color:#677080;line-height:1.6;margin-top:20px}@media(max-width:720px){.print-price-grid{grid-template-columns:1fr}.print-price-card>img{height:260px}.print-price-body{padding:19px}}
